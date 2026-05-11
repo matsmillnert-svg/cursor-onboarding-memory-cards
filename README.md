@@ -3,19 +3,20 @@
 Tiny flashcard app for internalizing Cursor Onboarding material.  
 PRD: [`prd.md`](./prd.md) · Canonical source on Notion: <https://www.notion.so/35dda74ef04580ef94f7d7d2341fee30>
 
+**Live demo:** <https://cursor-onboarding-memory-cards.vercel.app> · **Mirror (GitHub Pages):** <https://matsmillnert-svg.github.io/cursor-onboarding-memory-cards/>
+
 - **Scope:** Client-only, no build step, no external APIs.
 - **Data:** Local JSON in `data/`.
-- **Hosting:** Any static host (works on GitHub Pages out of the box).
+- **Hosting:** Any static host (currently deployed on Vercel; GitHub Pages mirror available).
 
 ## Run it
 
-### Option A — GitHub Pages (recommended)
+### Option A — Production (recommended)
 
-Once Pages is enabled for this repo, open:
+- Vercel: <https://cursor-onboarding-memory-cards.vercel.app>
+- GitHub Pages: <https://matsmillnert-svg.github.io/cursor-onboarding-memory-cards/>
 
-```
-https://matsmillnert-svg.github.io/cursor-onboarding-memory-cards/
-```
+Both auto-update on every push to `main`.
 
 ### Option B — Local server
 
