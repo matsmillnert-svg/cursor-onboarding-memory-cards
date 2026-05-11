@@ -134,6 +134,10 @@ select:focus-visible,
   gap: 12px;
 }
 
+.face[hidden] {
+  display: none;
+}
+
 .hint {
   display: inline-block;
   font-size: 12px;
