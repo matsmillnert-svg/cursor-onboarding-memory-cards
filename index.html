@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cursor Onboarding Memory Cards</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app" id="app" aria-live="polite">
+      <header class="top">
+        <h1 id="deck-title">Cursor Onboarding Memory Cards</h1>
+        <div class="meta">
+          <span id="progress" class="progress" aria-label="progress">0 / 0</span>
+          <select id="tag-filter" aria-label="Filter by tag">
+            <option value="">All tags</option>
+          </select>
+          <button id="shuffle" type="button" title="Shuffle (S)">Shuffle</button>
+          <button id="theme" type="button" title="Toggle theme (T)" aria-label="Toggle theme">🌙</button>
+        </div>
+      </header>
+
+      <section class="stage" aria-label="Flashcard">
+        <button id="card" class="card" type="button" aria-pressed="false" aria-label="Flashcard. Press space or click to flip.">
+          <div class="face face--front">
+            <span class="hint" id="front-hint">Question</span>
+            <p class="text" id="front-text">Loading…</p>
+            <ul class="tags" id="front-tags"></ul>
+          </div>
+          <div class="face face--back" hidden>
+            <span class="hint">Answer</span>
+            <p class="text" id="back-text"></p>
+            <ul class="tags" id="back-tags"></ul>
+          </div>
+        </button>
+      </section>
+
+      <nav class="controls" aria-label="Card navigation">
+        <button id="prev" type="button" aria-label="Previous card (left arrow)">← Previous</button>
+        <button id="flip" type="button" aria-label="Flip card (space)">Flip</button>
+        <button id="next" type="button" aria-label="Next card (right arrow)">Next →</button>
+      </nav>
+
+      <footer class="legend">
+        <kbd>Space</kbd> flip · <kbd>←</kbd>/<kbd>→</kbd> navigate · <kbd>S</kbd> shuffle · <kbd>T</kbd> theme
+      </footer>
+    </main>
+
+    <script src="./app.js" defer></script>
+  </body>
+</html>
