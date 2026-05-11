@@ -1,0 +1,25 @@
+{
+  "id": "cursor-onboarding-stub",
+  "title": "Cursor Onboarding (stub)",
+  "description": "Replace prompts/answers with content from your onboarding doc.",
+  "cards": [
+    {
+      "id": "stub-1",
+      "front": "What is a common way to give the AI persistent context in Cursor?",
+      "back": "Project rules (e.g. .cursor/rules) and user-level rules — stub answer; refine from your onboarding notes.",
+      "tags": ["rules", "context"]
+    },
+    {
+      "id": "stub-2",
+      "front": "Name one way to run a command from the editor without leaving the keyboard.",
+      "back": "Command Palette / terminal integration — stub; align with your doc’s shortcuts section.",
+      "tags": ["shortcuts"]
+    },
+    {
+      "id": "stub-3",
+      "front": "What does MCP stand for in this ecosystem?",
+      "back": "Model Context Protocol — connects tools and data sources to the agent; stub detail as needed.",
+      "tags": ["mcp", "agents"]
+    }
+  ]
+}
