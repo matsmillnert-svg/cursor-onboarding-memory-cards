@@ -1,0 +1,230 @@
+{
+  "id": "cursor-onboarding",
+  "title": "Cursor Onboarding",
+  "description": "Memory cards distilled from the Cursor Learning doc: company narrative, pillars, architecture, products, and competitive framing.",
+  "source": "Cursor Learning doc.pdf",
+  "cards": [
+    {
+      "id": "eras-of-tooling",
+      "front": "What are the three eras of AI-assisted development as framed by Cursor's CEO?",
+      "back": "1) Tab autocomplete. 2) Synchronous agents (you prompt, agent responds, you review — e.g. Claude Code, Codex). 3) Fleets of agents running autonomously in the cloud for hours; the developer shifts from writing code to directing agents.",
+      "tags": ["eras", "market", "vision"]
+    },
+    {
+      "id": "matrix-axes",
+      "front": "What two axes define the matrix Cursor uses to compare AI coding tools?",
+      "back": "X-axis: level of autonomy/intelligence (from Tab complete to fully autonomous background agents). Y-axis: portion of the SDLC covered (planning → writing → reviewing → debugging → deploying).",
+      "tags": ["matrix", "positioning"]
+    },
+    {
+      "id": "matrix-placement",
+      "front": "Where do Copilot, Claude Code, and Cursor sit on the autonomy × SDLC matrix?",
+      "back": "Copilot: bottom-left — strong tab/inline chat, limited autonomy and workflow coverage. Claude Code: right side but narrow on Y — deep agentic reasoning in a terminal, outside the IDE. Cursor: spans the full autonomy slider AND covers the full workflow inside one governed environment.",
+      "tags": ["matrix", "competitors"]
+    },
+    {
+      "id": "four-pillars",
+      "front": "What are Cursor's four core capability pillars?",
+      "back": "1) Model flexibility (model-agnostic). 2) Deep codebase knowledge and context (whole-codebase indexing). 3) Workflow integration (full SDLC coverage). 4) Execution inside the IDE (the workspace/harness above the model).",
+      "tags": ["pillars", "differentiators"]
+    },
+    {
+      "id": "harness-definition",
+      "front": "What is the 'agent harness' and why does it matter?",
+      "back": "The harness is the orchestration layer between the raw AI model and the actual task — it decides what context to pull from the codebase, how to break work into steps, when to execute code, when to check results, and how to coordinate. Cursor, Copilot, and Claude Code can all access top frontier models, but results differ because the harness differs. The harness is Cursor's proprietary engineering.",
+      "tags": ["harness", "architecture", "pillars"]
+    },
+    {
+      "id": "anysphere-founders",
+      "front": "Who builds Cursor, and who founded the company?",
+      "back": "Cursor is built by Anysphere, founded in 2022 by four MIT classmates: Michael Truell (CEO), Sualeh Asif, Aman Sanger, and Arvid Lunnemark (later left to start an AI safety lab). HQ: San Francisco.",
+      "tags": ["company", "founders"]
+    },
+    {
+      "id": "arr-stat",
+      "front": "What ARR has Cursor reached as of April 2026, and how fast did it grow?",
+      "back": "Over $2B in annualised revenue. The number doubled in roughly three months between Nov 2025 and Feb 2026. For context: Slack took 4 years to reach $1B ARR; Zoom took 5. Cursor did it in under 2 from a standing start.",
+      "tags": ["company", "stats"]
+    },
+    {
+      "id": "enterprise-mix",
+      "front": "What share of Cursor's revenue comes from enterprise customers?",
+      "back": "Roughly 60% of revenue is enterprise as of April 2026 — up from a negligible share in early 2024 when the product was primarily individual developers.",
+      "tags": ["company", "enterprise"]
+    },
+    {
+      "id": "scale-stats",
+      "front": "What are Cursor's headline scale numbers as of April 2026?",
+      "back": "Over 1M daily active users across 50,000+ businesses. ~70% of the Fortune 1000 represented (Fortune cited 67% of the Fortune 500). 300+ people on the team. 150M lines of enterprise code written every day using Cursor.",
+      "tags": ["company", "stats"]
+    },
+    {
+      "id": "series-d",
+      "front": "What was Cursor's Series D and current valuation context?",
+      "back": "$29.3B valuation from the November 2025 Series D — a $2.3B round co-led by Accel and Coatue, with Google and NVIDIA as strategic investors. Talks reported in early 2026 of a new round at $50–60B.",
+      "tags": ["company", "funding"]
+    },
+    {
+      "id": "indexing-merkle",
+      "front": "How does Cursor detect what changed in a repo without rescanning everything?",
+      "back": "It computes a Merkle tree of file hashes — each file has a fingerprint, each folder's fingerprint is computed from its contents, up to one root hash. When a file changes, Cursor walks the tree to find exactly what changed in seconds.",
+      "tags": ["architecture", "indexing"]
+    },
+    {
+      "id": "indexing-ast-chunking",
+      "front": "How does Cursor chunk code for indexing, and why?",
+      "back": "It uses tree-sitter AST-aware splitters so chunks fall on meaningful boundaries (whole functions, whole classes) instead of arbitrary line cuts. Garbage chunks in = garbage search out, so coherent chunks matter a lot.",
+      "tags": ["architecture", "indexing"]
+    },
+    {
+      "id": "indexing-embeddings",
+      "front": "Where and how does Cursor store code embeddings?",
+      "back": "Each chunk gets a vector embedding. Embeddings are stored in Turbopuffer (a vector DB built on S3), with each (user, codebase) pair in its own namespace. Embeddings are cached by content hash so unchanged chunks aren't re-embedded. Re-sync happens roughly every 5 minutes via the Merkle tree.",
+      "tags": ["architecture", "indexing", "turbopuffer"]
+    },
+    {
+      "id": "turbopuffer-perf",
+      "front": "Why does Turbopuffer matter vs. typical vector DBs like HNSW-based systems?",
+      "back": "Most vector DBs use graph-based algorithms (HNSW) — fast but memory-hungry. Turbopuffer uses clustered indexes optimised for cheap object storage. Cold queries: 500–600ms; warm queries: 8–10ms. Cursor pre-warms the cache when you open a codebase. This cut Cursor's vector search costs by roughly 95% vs. a traditional HNSW setup.",
+      "tags": ["architecture", "turbopuffer", "performance"]
+    },
+    {
+      "id": "privacy-architecture",
+      "front": "Why doesn't Cursor's indexing architecture conflict with the privacy story?",
+      "back": "Raw source code doesn't persist on Cursor's servers — only embeddings and obfuscated metadata live in Turbopuffer. Actual code only moves at inference time, for the specific lines needed, and then it's gone. That's the three-tier privacy model expressed in technical terms.",
+      "tags": ["architecture", "privacy", "security"]
+    },
+    {
+      "id": "tab-model",
+      "front": "What is special about Cursor's Tab completion?",
+      "back": "Unlimited on every paid plan. Powered by small custom models Cursor fine-tuned in-house (smaller weights, smaller KV cache) — economically viable as always-on. Trained to understand intent, modify multiple lines at once, and coordinate changes across files. Not the same as generic frontier-model autocomplete.",
+      "tags": ["product", "tab", "models"]
+    },
+    {
+      "id": "composer-model",
+      "front": "What is Composer and what makes it distinctive?",
+      "back": "Cursor's in-house model purpose-built for software development (launched November). Tuned for understanding large codebases and optimized for speed — runs ~4× faster than comparable frontier models while delivering high-quality output. Composer 2 ships frontier-level coding with significantly higher included usage than third-party models.",
+      "tags": ["product", "composer", "models"]
+    },
+    {
+      "id": "agent-mode",
+      "front": "What does Agent mode do?",
+      "back": "Describe a change in natural language; the agent edits across multiple files in one coordinated diff, respecting existing patterns and conventions because the index already understands the architecture. For bigger work, it runs tests, diagnoses failures, and iterates until passing.",
+      "tags": ["product", "agent"]
+    },
+    {
+      "id": "background-agents",
+      "front": "What are Background Agents?",
+      "back": "Cloud-based agents in isolated VMs. You give them a task (e.g. 'implement the notification system per this spec'); they clone the repo, branch, write, test, and open a PR. Multiple can run in parallel. Available self-hosted on customer infrastructure as of March 2026 — important for compliance-sensitive buyers.",
+      "tags": ["product", "agents", "cloud"]
+    },
+    {
+      "id": "bugbot",
+      "front": "What is Bugbot and what does it do?",
+      "back": "Cursor's automated code-review agent. Integrates with GitHub and similar systems to review PRs, identify logic bugs, security issues, and edge cases, and surfaces 'Fix in Cursor' links. In beta it reviewed 1M+ PRs and flagged 1.5M issues. Resolution rate moved from 52% → 76%. Bugbot Autofix spins up its own cloud agent, tests a fix in a VM, and proposes it on the PR — 35%+ of Autofix changes merge directly into the base PR.",
+      "tags": ["product", "bugbot", "review"]
+    },
+    {
+      "id": "automations",
+      "front": "What are Automations (shipped March 5, 2026)?",
+      "back": "Always-on agents triggered by events: PR creation → Bugbot reviews/fixes. Slack message → agent triages bugs and creates Linear issues via MCP. Cron → agent adds test coverage every morning. PagerDuty incident → agent queries logs through MCP and investigates. Automations have a memory tool so they learn from past runs — this is how Cursor moves from developer tool to engineering operations platform.",
+      "tags": ["product", "automations"]
+    },
+    {
+      "id": "cursor-rules",
+      "front": "What are the three scopes of Cursor Rules?",
+      "back": "Project Rules (committed to the repo, shared with everyone). Team Rules (managed from the cloud dashboard, can be required org-wide). User Rules (personal). This is where compounding value lives for large teams — every developer and every agent follows your patterns automatically.",
+      "tags": ["product", "rules"]
+    },
+    {
+      "id": "mcp",
+      "front": "What is MCP and what does it unlock in Cursor?",
+      "back": "Model Context Protocol — lets Cursor connect to external tools like Figma, Linear, Sentry, Datadog, Jira, GitHub, Slack, and more. MCP Apps can render rich interactive content inside the editor (including Figma diagrams), bridging design-to-code.",
+      "tags": ["product", "mcp", "integrations"]
+    },
+    {
+      "id": "graphite-acquisition",
+      "front": "Why did Cursor acquire Graphite, and what does it complete?",
+      "back": "Truell's framing: writing production code is much faster, but code review still looks like it did three years ago and is growing as a share of time. With Graphite + Bugbot + Autofix, Cursor now owns write → review → merge end-to-end. Deal signed Dec 19, 2025; price reported as 'way over' Graphite's last $290M valuation. Graphite continues to operate as an independent product.",
+      "tags": ["company", "graphite", "acquisition"]
+    },
+    {
+      "id": "sdlc-loop",
+      "front": "What is the core SDLC loop Cursor accelerates, and how?",
+      "back": "Generate → Test → Debug → Deploy. Generate: Composer edits across multiple files in one coordinated diff. Test: Agent mode runs tests, reads errors, iterates until they pass. Debug: the codebase index traces through the dependency graph to find root cause, not just symptom. Deploy: Bugbot Autofix proposes tested fixes that merge directly 35%+ of the time; Graphite stacked PRs keep work unblocked; Automations handle post-merge.",
+      "tags": ["sdlc", "workflow"]
+    },
+    {
+      "id": "differentiator-platform",
+      "front": "Why is 'Platform, not just a tool' the executive pillar?",
+      "back": "Cursor supports the entire SDLC (planning, writing, reviewing, debugging, iterating) — not just isolated code generation. The value isn't 'better answers,' it's better execution and iteration across the full workflow. It's the shift from tool to infrastructure — the one that justifies moving from $20 seats to six- and seven-figure enterprise commitments.",
+      "tags": ["pillars", "enterprise"]
+    },
+    {
+      "id": "discovery-question",
+      "front": "What's a strong discovery question that comes out of the SDLC framing?",
+      "back": "'How does your team handle the loop from code change to production today, and where does it slow down?' It lets a VP of Engineering tell you which part of the cycle hurts most — and that pain is where you anchor value.",
+      "tags": ["sdlc", "sales", "discovery"]
+    },
+    {
+      "id": "vs-copilot",
+      "front": "How should you frame Cursor vs. GitHub Copilot?",
+      "back": "Copilot helps an individual developer type faster (snippet help, inline chat); now offers model choice and is cheaper at the low end. Cursor is structurally stronger on: codebase context (it's the IDE, not a plugin), the full autonomy spectrum (Tab → Agent → Background → Automations), Cursor Rules for org standardisation, and Bugbot + Graphite for review. Framing: Copilot is about typing faster; Cursor is about how an engineering org operates.",
+      "tags": ["competitors", "copilot"]
+    },
+    {
+      "id": "copilot-pricing",
+      "front": "What's the real cost picture for GitHub Copilot Enterprise vs. Cursor?",
+      "back": "Copilot Business: $19/user/mo. Copilot Enterprise: $39/user/mo — BUT requires GitHub Enterprise Cloud at an additional $21/user/mo, so true Copilot Enterprise is $60/user/mo. Cursor Teams: $40/user/mo. Copilot is cheaper at the low end; Enterprise comparisons tighten or flip once GHEC is included.",
+      "tags": ["competitors", "copilot", "pricing"]
+    },
+    {
+      "id": "vs-claude-code",
+      "front": "How should you frame Cursor vs. Claude Code?",
+      "back": "Claude Code: massive context windows, best-in-class Opus reasoning, terminal-native, Agent Teams, $2.5B+ run rate by early 2026. Cursor: visual IDE, Tab + inline editing, enterprise governance (SSO, SCIM, enforced Privacy Mode, audit logs, AI code tracking API), Team Rules, Background Agents (self-hostable as of March 2026), Graphite review layer. It's complementary, not displacement — Claude models are selectable inside Cursor. The real enterprise question: which tool is the shared AI layer and governance plane for the whole org?",
+      "tags": ["competitors", "claude-code"]
+    },
+    {
+      "id": "claude-architecture-bet",
+      "front": "What architectural bet did Claude Code deliberately make, and how does it contrast with Cursor's?",
+      "back": "Claude Code deliberately doesn't pre-index. Creator Boris Cherny has explained that early versions used RAG with a local vector DB, but agentic search (grep, glob, file reads at runtime) outperformed it for their use case. It's a valid bet — but optimised for deep, focused, agent-driven tasks in a terminal, not for ambient, always-on, in-the-IDE intelligence across the SDLC.",
+      "tags": ["competitors", "architecture"]
+    },
+    {
+      "id": "claude-cost-framing",
+      "front": "What's the cost framing for Claude Code seats vs. Cursor Teams at scale?",
+      "back": "Claude Code Team Premium lists at $100/user/mo annual ($125 monthly), dropped from $150 in Jan 2026. At 650 engineers, Team Premium ≈ $780K/year. Cursor Teams at $40/user ≈ $312K/year — roughly 40% of the cost. On Anthropic's Enterprise tier, the seat fee covers access only; usage is billed separately at API rates and can exceed list seat pricing for heavy users. Lead with capability fit, then let economics reinforce.",
+      "tags": ["competitors", "claude-code", "pricing"]
+    },
+    {
+      "id": "other-competitors",
+      "front": "What's the short read on Windsurf, JetBrains AI, Tabnine, and Devin?",
+      "back": "Windsurf (Cognition): Teams at $40/user; strong multi-file editing; doesn't match Cursor's parallel cloud agents as of early 2026. JetBrains AI: fits IntelliJ/PyCharm shops; ~$60/user; Cursor's ACP compliance (March 2026) lets it plug into JetBrains as a guest agent. Tabnine: relevant when on-prem/air-gapped is non-negotiable; Cursor's self-hosted cloud agents close most of that gap. Devin/Cognition: positioned as an autonomous junior engineer — different positioning, rare direct overlap.",
+      "tags": ["competitors"]
+    },
+    {
+      "id": "security-baseline",
+      "front": "What are Cursor's baseline security and privacy guarantees?",
+      "back": "SOC 2 Type II certified. Privacy Mode (when enabled, code isn't stored, retained, or used for training). Zero data retention agreements with OpenAI, Anthropic, and Google. On Teams/Enterprise, Privacy Mode is enforced centrally — no individual opt-out. GDPR/CCPA compliant; HIPAA-readiness available.",
+      "tags": ["security", "enterprise"]
+    },
+    {
+      "id": "self-hosted-march-2026",
+      "front": "What changed in March 2026 around self-hosting and air-gapped deployments?",
+      "back": "Cursor shipped self-hosted cloud agents — agents run entirely inside the customer's network, code never leaves their infrastructure. Big unlock for compliance-heavy accounts. Caveat: it isn't the same as a fully air-gapped install. If a buyer pushes for that, be direct — overstating damages credibility with security and procurement faster than anything else.",
+      "tags": ["security", "self-hosted", "enterprise"]
+    },
+    {
+      "id": "enterprise-controls",
+      "front": "What enterprise admin controls does Cursor offer?",
+      "back": "SSO (SAML/OIDC), SCIM provisioning, audit logs, AI code tracking API (visibility into AI-generated code), admin dashboard for usage, centralised billing, and globally configurable model access, MCP controls, and system-level agent rules.",
+      "tags": ["enterprise", "controls"]
+    },
+    {
+      "id": "honest-version",
+      "front": "What's the 'honest version' of why Cursor wins without exclusive model access?",
+      "back": "'Our edge is usually not that we have exclusive access to better intelligence. It's that we apply intelligence more effectively across real engineering workflows.' Cursor helps teams get more out of frontier models by pairing them with better workflow, better context, and a more integrated way to build and deploy.",
+      "tags": ["positioning", "harness"]
+    }
+  ]
+}
